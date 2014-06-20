@@ -1,0 +1,5 @@
+<?php
+$today="Friday";
+$$today="¬P´Á¤­";
+echo "{$today}={$$today}";
+?>
