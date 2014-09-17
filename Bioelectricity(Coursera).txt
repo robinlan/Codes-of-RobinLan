@@ -1,0 +1,40 @@
+Coursera Bioelectricity
+W2-
+  Membrane Patches-
+    Engine of bioelectricity circuit
+    Generators locate in the membrane(sodium-potassium pump)
+    A patch consists of about 10~100 pumps(the number able to be studied)
+  Trans-membrane voltage(Vm)-To charge:Pumps move the ions into/out of membrane(require external energy)->Pumps leaks out a little potassium
+  Sodium-Potassium Pumps-2 Potassium goes inside(P ion removed),3 Sodium goes outside(ATP required)¡BGives diffent voltage
+  Ionic equillibrium-
+    Nernst for Potassium-
+      only potassium ion permeable
+      diffusion pushes potassium out(because of membrane temperature)
+      electric field pushes potassium ion in
+      equillibrium occurs near the Nernst Vm for potassium ion
+  ##Nernst Vm=(RT/F)ln(Ke/Ki)=26*ln(20/397)sqid about -77mV(EKNernst equillibrium for Potassium)
+    
+    Nernst for Sodium-
+      only sodium ion permeable
+      diffusion pushes Sodium out(because of membrane temperature)
+      electric field pushes Sodium ion in
+      equillibrium occurs near the Nernst Vm for sodium ion
+  ##Nernst Vm=about +57mV(EKNernst equillibrium for Sodium)
+    
+    Goldman's equation(If no Im)-
+      Vm=(RT/F)ln[(Pk*[K]e+PNa*[Na]e+PCl*[Cl]i)/(Pk*[K]i+PNa*[Na]i+PCl*[Cl]e)]¡BP(permeability coefficients)
+  
+  Battery lifetime-Whole Human Life
+  ##Vm shift=ENa-EK 
+
+  Membrane Resistance(Rm)-
+    pure lipid bilayer virtually no conductance(infinite resistance)-conductance comes from pumps & channels¡Bconductance goes with open-channel number
+  Membrane Conductance-
+    Conductors comes mainly from conducting solutions
+    Sodium ion has about 4~17 ps
+    Potassium ion has about 12~240 ps
+  Membrane Capacitance-
+    Im=Cm*(dVm/dt)
+    It is very big(Because lipid bilayer is thin)
+    C=epsilon0*(A/d(thickness))
+    paper is 10000 times thicker than membrane

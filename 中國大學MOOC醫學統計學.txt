@@ -1,0 +1,25 @@
+中國大學MOOC醫學統計學
+W1-
+
+詢證醫學奠基人-Louis
+發明回歸直線&分析研究豌豆-Galton
+現代統計學之父-Pearson
+創隨機對照試驗-Fisher
+隨機化臨床試驗先鋒-Hill
+實施史上最大規模臨床試驗-Salk
+
+統計學是公共衛生工作者的有利工具
+Graunt創壽命表(人口統計學開端)、Snow應用數學&統計建模分析、Doll&Hill從事吸菸&肺癌創新研究
+
+醫學統計學概要-
+  統計描述-表格、圖形、壽命表
+  統計推斷-t檢驗、X^2檢驗(卡方檢驗)、方差分析、相關與回歸
+  統計設計-干預研究、動物實驗、臨床試驗、觀察性研究
+  現代統計-多重回歸、Logistic回歸、Cox回歸、Meta分析
+
+重要概念-
+  總體(population)-大同小異對象全體、目標整體(Target population試圖下結論整體,EX:英國全部男子)、研究總體(Study population資料來源較小總體,EX:英國已註冊醫生)
+  抽樣(Sampling)、樣本(Sample)、數據(Data)、信息(Information)、推斷(Inference:data->information->knowledge)
+  同質性(Homogeneity)、變異(Variation,多樣性)、異質性(heterogeneity)
+  變量(Variable)-定性(Qualitative,分類(Categorical,名義(Nominate),用水平(Level)表示類別、二分類&假變量)&有序(Ordinal,存在順序的分類))、定量(Quantative,離散(Discrete,整數型態)&連續(Continuous,適合訊號以及大數,EX:紅血球數))、變量轉換(只能高級到低級(連續型->有序->分類->二值))
+  因果關係(Causation)!=聯繫(Association)

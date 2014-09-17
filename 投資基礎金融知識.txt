@@ -1,0 +1,12 @@
+Open-ended mutual fund : 
+  機制：https://www.khanacademy.org/economics-finance-domain/core-finance/investment-vehicles-tutorial/mutual-funds/v/open-ended-mutual-fund--part-1、https://www.khanacademy.org/economics-finance-domain/core-finance/investment-vehicles-tutorial/mutual-funds/v/open-end-mutual-fund-redemptions
+  先向SEC註冊、每天結束後都會有新的股或舊股增加淘汰、NAV:所有股價總合、不容易管理、必須保留一部分現金在手頭
+Close-ended mutual fund :
+  機制：https://www.khanacademy.org/economics-finance-domain/core-finance/investment-vehicles-tutorial/mutual-funds/v/closed-end-mutual-funds
+  一旦募集完成、不會再增減投資者、必須使用交易形式將股份移轉、投資者控制股份
+Exchange traded funds (ETFs) :
+  機制：https://www.khanacademy.org/economics-finance-domain/core-finance/investment-vehicles-tutorial/mutual-funds/v/exchange-traded-funds--etfs
+  上述二者的結合、代管費用減少且投資者可管理性增加
+Ponzi schemes：
+  機制：https://www.khanacademy.org/economics-finance-domain/core-finance/investment-vehicles-tutorial/mutual-funds/v/ponzi-schemes
+  一種大騙局、老鼠會、犯罪手法

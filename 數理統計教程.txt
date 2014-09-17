@@ -1,0 +1,12 @@
+數理統計教程
+基本概念-
+  "秩"就是自由度
+  Skewness(偏度) & Kurtosis(峰度)
+  經驗分布函數(Empirical Distribution)
+  Glivenko-Cantelli(大樣本時的經驗分布接近總體分布)
+  Dvoretzky, Kiefer, and Wolfowitz(Dn指數型不等式)
+  Kolmogorov檢驗(對於經驗分布函數)
+  抽樣分布(統計量的概率分布)
+  CDF累積分布函數
+  PDF概率密度函數
+  常用抽樣分布-卡方分布、t分布

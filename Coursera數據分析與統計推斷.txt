@@ -1,0 +1,134 @@
+Coursera數據分析與統計推斷
+U1-Introduction to data
+
+大綱-population->sample->design->scope->exploratory data analysis->inference
+
+數據基礎-
+  data matrix :observations(列)、variabless(行)
+  numerical(quanttive)-continous vs discrete、categorical(quailative)regular categorical vs ordinal
+  辨認資料型態是統計分析第一步
+
+觀察研究與實驗-
+  observational study-二手資料、retrospective vs prospective
+  experiment-一手資料、隨機取樣(random assignment)
+  前者較後者相比手續較簡單卻帶有很多不確定因素(correlation isn't causation)
+
+取樣與誤差來源-
+  census、representative sample
+  sampling bias-Convenience sample(易取得)、Non-reponse(人太少)、Voluntary response(志願人占大部分)
+  取樣方法-SRS(simple random sampling,每次被選機會相等)、stratified sampling(先分成幾類再從每類中選相同數量)、cluster sampling(先分幾個群在從中隨機選幾個群,常用在金融領域)
+
+實驗設計-
+  Control-treatment(對照組)vs control(控制組)
+  Randomize
+  Replicate-收集足夠樣本
+  blocking-考慮不同性質樣本先分開再隨機分配相同數量至兩組
+  explanatory variables(factors)-我們對實驗組做出的影響
+  blocking variables-實驗組附帶的影響因素
+  response variables-實驗結果
+  block during random assignment, stratifying during random sampling
+  實驗名詞:placebo(假實驗組)、plcebo effect、blinding(樣本不知自己在哪一群)、double-blinding(兩邊樣本都不知道自己在哪一群)
+
+隨機分配樣本-
+  random sampling-對於普遍差異不大(general)樣本
+  random assignment-對於有性質差異(confounding variables)樣本(EX:性別)
+  random sampling->random assignment->causal and generalized conclusion
+
+數據可視化-
+  scatterplots-散布圖, explanatory(x axis) vs response(y axis)、代表correlation不是causation
+  方向(正負)、型狀(線性非線性)、相關性(高低)、極端值
+  直方圖-顯示資料密度、適用描述分布形態、skewness(峰型)、modality(峰數,1(unimodal,例如常態分布),2(bimodal),多(multimodal),一致(uniform),看尾巴(EX:尾巴左邊長便是left skewed))、bin width(每條直方寬度)
+  dotplot-適用小規模
+  boxplot-適合求中位數和IQR
+  intensity map-空間分布
+
+中間值測量-
+  mean(均數)、median(中位數)、mode(眾數)
+  是一種point estimate
+  skewed-left(mean<median)、symmetric(equal)、right(mean>median)
+
+分散程度(variability)測量-
+  range(全距)、變異數、標準差
+  s表樣本標準差,sigma表母體標準差
+  平方可抵消負號且加大分散指數
+  variable(均量度) vs diversity(多樣性)
+  interquartile range(IQR)-常現於boxplot
+
+Robust Statistics健全統計-
+  統計使用的數據誤差不大
+  常用median表center、IQR表spread
+  unrobust常用mean表center、sd表spread
+
+數據轉換-
+  調整值分布範圍
+  nature log transformation-使趨勢更線性
+  square root transformation-趨勢更不線性
+  inverse transformation-每個值取倒數
+
+類型變數-
+  frequency table & barplot-頻率使用百分比形式、count用整數型態
+  pie chart、contigency table(類似Excel財務報表,顯示個別相對頻率)
+  segment bar plot-比較不同趨勢時不同種類分布頻率,種量會變
+  mosaic plot-類似segment bar part只是總量都固定
+  side-by-side box plot-依類別畫boxplot
+
+統計推論介紹-
+  從性別升官不平等現象
+  Hypothesis(Null(H0,我們想否定的,性別與升官獨立) vs Alternative(HA))->present evidence->judge->conclusion(yes or no,兩者是獨立的,p-value過小)
+
+U2-probability and distribution
+
+隨機過程-
+  we know what outcome will happen but unknow the probability it happen
+  probability-frequentist interpretation、baysian interpretation
+大數定裡-
+  as more observation are collected the proportion of outcome converge to a value
+  gambler's fallacy-any given toss of coin probabilly will be a half
+互斥事件-
+  永遠不會同時發生-P(A & B) = 0
+  互斥事件聯集機率即是相加
+  非互斥事件聯集機率(General Additional Rule)-兩機率相加減掉重疊部分
+樣本空間-
+  任何可能結果的總和
+機率分布-
+  列出任何可能結果及其機率
+  所有事件必須都互斥
+  所有機率加起來=1
+互補事件-兩互斥事件加起來機率 = 1
+獨立事件-
+  一事件不提供任何與另一事件相關的資訊
+  P(A|B)(probability of a given b)=P(A)
+  observed differnce between conditional probability -> dependence -> hypothesis test
+  the larger size of sample more convincible
+  獨立事件交集-P(A & B)=P(A) * P(B)
+互斥事件永遠是非獨立事件
+貝氏定理-
+  P(A|B)=P(A & B)/P(B)
+  General Product Rule-P(A & B)=P(A | B) * P(B)
+  For independent events-P(A|B) = P(A)
+機率樹-
+貝氏推斷-
+  Hypothesis -> Collect Data -> Analysis Data 
+  Posterior Probability-
+    P(hypothesis|data)、Based on prior probability and observed data
+  P(data|hypothesis)-p value
+  透過貝氏推斷 , 我們在每次的觀測結果上重新修正我們的假設
+  "利用前次經驗"為其中心思想
+  不同於p-value(P(observed or more extreme outcome|H0 is true))
+  決定結果建立在posterior probability(hypothesis is true|observed data)的基礎上面
+常態分布-
+  單峰且對稱
+  很多隨機分布近似常態分布但沒有一個是標準常態分布
+  標準Z分數 : (observ - mean)/SD -
+    與均值相距幾個標準差、可用來計算percentile(pnorm in R)
+    pnorm(the-value-to calculate,mean,sd)
+  畫常態機率圖-
+    需要Z分數及其相應的機率、偏右(左)表分布偏右(左)、短(長)尾表趨勢及中(分散)
+  qnorm(the-percentage-to calculate,mean,sd)
+伯母利隨機變數-
+  # of scenarios * P(single scenario) = (n!/k!(n-k)!)*(p**k*(1-p)**k)
+  C n 取 k可以用choose(n,k)表示
+  dbinorm(你想要的成功次數(k),總次數(n),成功機率(p))
+  樣本數夠大(n*p>10)時可用常態分布計算
+  sum(dbinorm(range,size,p))計算曲線下面積(離散版本)
+  dbinorm(range,size,p)計算剛好那個值的機率

@@ -1,0 +1,382 @@
+Computational Investing Part1-
+W1-
+  
+  Annual Return-
+    metric = (value[end]/value[start])-1
+  Daily Return-
+    daily_rets[i]=(value[i]/value[i-1])-1
+    std_metric=stdev(daily_rets)(標準差)
+  Max Draw Down-
+    區域最大值-區域最小值
+  Sharpe Ratio-
+    越高越好(股價波動較平穩)、代表return彌補risk的程度
+    S=E[R-Rf]/sigma=E[R-Rf]/sqrt(var[R-Rf])
+    Reward/Risk
+    metric(Sharpe Ratio)=k*mean(daily_rets)/stdev(daily_rets)、k=sqrt(250)
+  股票歷史價表-
+    Date、Open、High、Low、Close、Volumn(每天交易量)、Adj Close(Adjust Close)
+    分析前記得先排序
+    total retrun-最後值-最前值
+    daily_ret-今天值/昨天值-1(用百分比表示)
+    sharpe ratio-sqrt(250)*mean(daily_ret)/stdev(daily_ret)
+  
+W2-
+  Intrinsic Value-
+    sum(dividend*gamma^i)=dividend*1/(1-gamma)、gamma is "discount rate"
+    利用現在的資產可能產生的未來收入來折扣現值
+    代表公司價值
+  Company value : Book value + Intrinsic value-
+    book value : total assets 減掉 intanangible assets and liabilities
+    company market value = #shares outstanding * price
+    新聞事件也會影響公司的市場價值
+  Capital Assets Pricing Model(CAMP)-
+    探討影響股價隨時間變化的因素(2個以上)
+    引伸出Index investing概念
+    Assumptions-
+      Return on stock-Systematic、Residual、r(i)=beta*r(m)、stock return = reactivity of the stock * market return
+      Expected value of residual = 0
+      Market return-Risk free rate of return + Excess return(alpha(i))
+      r(i)=beta*r(m)+alpha(i)
+    the market profolio-
+      通常與大廠有關(EX S&P500(US)、FTA(UK)、TOPIX(Japen))
+    Beta-
+      r(i)=beta*r(m)+alpha(i) - From Active Profolio Management View
+      alpha(i)就像股票的產品資訊(隨機值)
+      可以用線性迴歸找出alpha和beta(r(m)為x軸、r(i)為y軸、beta是斜率,alpha是y截距)
+      beta與相關係數有關
+      beta = correlation * sigma(y)/sigma(x)
+      Expected alpha value = 0
+    Implication-
+      beta理想值>1(進步比市場快)、>beta會增加風險
+      Profolio Beta-
+        r(p)-sum(w(i)*r(i))
+        return of profolio = sum(weight of each return * return)
+        Beta(p)=sum(w(i)*beta(i))
+        beta of profolio = sum(weight of each beta * beta)
+    CAMP Market Risk-
+      long the stock but short market
+      此時即使股票下滑仍有機會賺錢(下滑程度不同所致)
+
+HW5-
+  Command Line-
+    python marketsim.py 1000000 orders.csv values.csv
+  Code-
+        import pandas as pd  
+import numpy as np  
+import math  
+import copy  
+import QSTK.qstkutil.qsdateutil as du  
+import datetime as dt  
+import QSTK.qstkutil.DataAccess as da  
+import QSTK.qstkutil.tsutil as tsu  
+import QSTK.qstkstudy.EventProfiler as ep  
+  
+  
+#get order  
+#sys.argv to get comman parameter  
+na_data = np.loadtxt('orders2.csv',dtype=np.str,delimiter=',')  
+#dtype={'names':('year','month','day','equity','buorsell','count'),    'formats':('i4','i4','i4','S5','S5','i4')},  
+na_dates=np.int_(na_data[:,0:3])  
+order=na_data[:,3:6]  
+ls_symbols=set(order[:,0])  
+  
+#get equity price  
+dt_start = dt.datetime(2011, 1, 1)  
+dt_end = dt.datetime(2011, 12, 31)  
+ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt.timedelta(hours=16))  
+  
+dataobj = da.DataAccess('Yahoo')  
+  
+#why close?  
+#close for Adjusted Close ;actual_close for actual close  
+ls_keys = 'close'#['open', 'high', 'low', 'close', 'volume', 'actual_close']  
+ldf_data = dataobj.get_data(ldt_timestamps, ls_symbols, ls_keys)  
+  
+#calc portfolio  
+currentCash=1000000  
+currentEquity=dict()  
+byOrSellDict={'Buy':1,'Sell':-1}  
+  
+#dateInd=0  
+#currentDate=dt.datetime(na_dates[dateInd,0],na_dates[dateInd,1],na_dates[dateInd,2])+dt.timedelta(hours=16)  
+#orders=[dt.datetime(na_dates[dateInd,0],na_dates[dateInd,1],na_dates[dateInd,2])+dt.timedelta(hours=16),  
+#    [order[dateInd,0],order[dateInd,1],int(order[dateInd,2])] for dateInd in range(na_data.shape[0])]  
+orders={}  
+for dateInd in range(na_data.shape[0]):  
+    tmpDate=dt.datetime(na_dates[dateInd,0],na_dates[dateInd,1],na_dates[dateInd,2])+dt.timedelta(hours=16)  
+    if tmpDate in orders.keys():  
+        orders[tmpDate].append([order[dateInd,0],order[dateInd,1],int(order[dateInd,2])])  
+    else:orders[tmpDate]=[[order[dateInd,0],order[dateInd,1],int(order[dateInd,2])]]  
+  
+  
+  
+for i in ldt_timestamps:  
+    if i in orders.keys():  
+        for singleOrder in orders[i]:  
+            equity=singleOrder[0]  
+            byOrSell=singleOrder[1]  
+            count=singleOrder[2]  
+            if equity in currentEquity.keys():  
+                currentEquity[equity]+=count*byOrSellDict[byOrSell]  
+            else:currentEquity[equity]=count*byOrSellDict[byOrSell]  
+            currentCash+=-ldf_data[equity][i]*count*byOrSellDict[byOrSell]  
+      
+            print '----------------------',i,equity,byOrSell,count  
+            print currentEquity  
+              
+            #dateInd+=1  
+            #currentDate=dt.datetime(na_dates[dateInd,0],na_dates[dateInd,1],na_dates[dateInd,2])+dt.timedelta(hours=16)  
+      
+    #calc portfolia value  
+    portfValue=currentCash  
+    for tmpEqui in currentEquity.keys():  
+        portfValue+=ldf_data[tmpEqui][i]*currentEquity[tmpEqui]  
+    print i,portfValue  
+HW6-
+  參考 : http://blog.csdn.net/caozhk/article/details/12659269
+  下單指令(Event Study)-
+    Date, AAPL, BUY, 100  
+    Date + 5 days, AAPL, SELL, 100  
+  股值計算(股值計算 , 寫入csv文件)-
+    2008,01,03,50000.0  
+    2008,01,04,49893.0  
+    2008,01,07,49875.0  
+    2008,01,08,49846.0  
+    2008,01,09,49801.0  
+    2008,01,10,49844.0  
+    2008,01,11,49844.0  
+    2008,01,14,49844.0
+  策略評估參數(策略評估)-
+    The final value of the portfolio using the sample file is -- 2009,12,28,54824.0  
+  
+    Details of the Performance of the portfolio  
+  
+    Data Range :  2008-01-03 16:00:00  to  2009-12-28 16:00:00  
+  
+    Sharpe Ratio of Fund : 0.527865227084  
+    Sharpe Ratio of $SPX : -0.184202673931  
+  
+    Total Return of Fund :  1.09648  
+    Total Return of $SPX : 0.779305674563  
+  
+    Standard Deviation of Fund :  0.0060854156452  
+    Standard Deviation of $SPX : 0.022004631521  
+  
+    Average Daily Return of Fund :  0.000202354576186  
+    Average Daily Return of $SPX : -0.000255334653467   
+  Code(Event Study實現)-
+    #how to work? evalate the command below in order  
+#execfile('hw4_event.py')  
+#execfile('hw4_order.py')  
+#execfile('hw4_anylize.py')  
+  
+#change edge_price to change event  
+  
+  
+import pandas as pd  
+import numpy as np  
+import math  
+import copy  
+import QSTK.qstkutil.qsdateutil as du  
+import datetime as dt  
+import QSTK.qstkutil.DataAccess as da  
+import QSTK.qstkutil.tsutil as tsu  
+import QSTK.qstkstudy.EventProfiler as ep  
+  
+def find_events(ls_symbols, d_data):  
+    ''''' Finding the event dataframe '''  
+    df_close = d_data['actual_close']  
+    ts_market = df_close['SPY']  
+  
+    print "Finding Events"  
+      
+    #events defined here  
+    edge_price=7.0  
+    buy_sell_order=''  
+  
+    # Creating an empty dataframe  
+    df_events = copy.deepcopy(df_close)  
+    df_events = df_events * np.NAN  
+  
+    # Time stamps for the event range  
+    ldt_timestamps = df_close.index  
+  
+    for s_sym in ls_symbols:  
+        for i in range(1, len(ldt_timestamps)):  
+            # Calculating the returns for this timestamp  
+            #f_symprice_today = df_close[s_sym].ix[ldt_timestamps[i]]  
+            #f_symprice_yest = df_close[s_sym].ix[ldt_timestamps[i - 1]]  
+            #f_marketprice_today = ts_market.ix[ldt_timestamps[i]]  
+            #f_marketprice_yest = ts_market.ix[ldt_timestamps[i - 1]]  
+            #f_symreturn_today = (f_symprice_today / f_symprice_yest) - 1  
+            #f_marketreturn_today = (f_marketprice_today / f_marketprice_yest) - 1  
+  
+            # Event is found if the symbol is down more then 3% while the  
+            # market is up more then 2%  
+            #if f_symreturn_today <= -0.03 and f_marketreturn_today >= 0.02:  
+            if df_close[s_sym].ix[ldt_timestamps[i-1]]>=edge_price and df_close[s_sym].ix[ldt_timestamps[i]]<edge_price:  
+                df_events[s_sym].ix[ldt_timestamps[i]] = 1  
+                tmp_time=ldt_timestamps[i]  
+                tmp_day=dt.date(tmp_time.year,tmp_time.month,tmp_time.day)  
+                buy_sell_order+=str(tmp_day).replace('-',',')+','+s_sym+',Buy,'+str(100)+','  
+                if i+5<len(ldt_timestamps):  
+                    tmp_time=ldt_timestamps[i+5]  
+                else:  
+                    tmp_time=ldt_timestamps[-1]  
+                tmp_day=dt.date(tmp_time.year,tmp_time.month,tmp_time.day)  
+                buy_sell_order+=str(tmp_day).replace('-',',')+','+s_sym+',Sell,'+str(100)+','  
+  
+    order_list=list(buy_sell_order.split(','))  
+    del order_list[-1]  
+    order_array=np.array(order_list)  
+    order_array.resize((order_array.size/6,6))  
+    np.savetxt("myorder.csv",order_array,delimiter=',',fmt='%s')  
+    return df_events  
+  
+  
+if __name__ == '__main__':  
+    dt_start = dt.datetime(2008, 1, 1)  
+    dt_end = dt.datetime(2009, 12, 31)  
+    ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt.timedelta(hours=16))  
+  
+    dataobj = da.DataAccess('Yahoo')  
+    ls_symbols = dataobj.get_symbols_from_list('sp5002012')  
+    ls_symbols.append('SPY')  
+  
+    ls_keys = ['open', 'high', 'low', 'close', 'volume', 'actual_close']  
+    ldf_data = dataobj.get_data(ldt_timestamps, ls_symbols, ls_keys)  
+    d_data = dict(zip(ls_keys, ldf_data))  
+  
+    for s_key in ls_keys:  
+        d_data[s_key] = d_data[s_key].fillna(method='ffill')  
+        d_data[s_key] = d_data[s_key].fillna(method='bfill')  
+        d_data[s_key] = d_data[s_key].fillna(1.0)  
+  
+    df_events = find_events(ls_symbols, d_data)  
+    print "Creating Study"  
+    ep.eventprofiler(df_events, d_data, i_lookback=20, i_lookforward=20,  
+                s_filename='eventstudy.pdf', b_market_neutral=True, b_errorbars=True,  
+                s_market_sym='SPY') 
+  Code(股值計算)-
+    #how to work? evalate the command below in order  
+#execfile('hw4_event.py')  
+#execfile('hw4_order.py')  
+#execfile('hw4_anylize.py')  
+  
+#change currentCash,dt_start,dt_end  
+  
+import pandas as pd  
+import numpy as np  
+import math  
+import copy  
+import QSTK.qstkutil.qsdateutil as du  
+import datetime as dt  
+import QSTK.qstkutil.DataAccess as da  
+import QSTK.qstkutil.tsutil as tsu  
+import QSTK.qstkstudy.EventProfiler as ep  
+  
+  
+#get order  
+#sys.argv to get comman parameter  
+na_data = np.loadtxt('myorder.csv',dtype=np.str,delimiter=',')  
+#dtype={'names':('year','month','day','equity','buorsell','count'),    'formats':('i4','i4','i4','S5','S5','i4')},  
+na_dates=np.int_(na_data[:,0:3])  
+order=na_data[:,3:6]  
+ls_symbols=set(order[:,0])  
+  
+#get equity price  
+dt_start = dt.datetime(2008, 1, 1)  
+dt_end = dt.datetime(2009, 12, 31)  
+ldt_timestamps = du.getNYSEdays(dt_start, dt_end, dt.timedelta(hours=16))  
+  
+dataobj = da.DataAccess('Yahoo')  
+  
+#why close?  
+#close for Adjusted Close ;actual_close for actual close  
+ls_keys = 'close'#['open', 'high', 'low', 'close', 'volume', 'actual_close']  
+ldf_data = dataobj.get_data(ldt_timestamps, ls_symbols, ls_keys)  
+  
+#calc portfolio  
+currentCash=50000  
+currentEquity=dict()  
+byOrSellDict={'Buy':1,'Sell':-1}  
+  
+#dateInd=0  
+#currentDate=dt.datetime(na_dates[dateInd,0],na_dates[dateInd,1],na_dates[dateInd,2])+dt.timedelta(hours=16)  
+#orders=[dt.datetime(na_dates[dateInd,0],na_dates[dateInd,1],na_dates[dateInd,2])+dt.timedelta(hours=16),  
+#    [order[dateInd,0],order[dateInd,1],int(order[dateInd,2])] for dateInd in range(na_data.shape[0])]  
+orders={}  
+for dateInd in range(na_data.shape[0]):  
+    tmpDate=dt.datetime(na_dates[dateInd,0],na_dates[dateInd,1],na_dates[dateInd,2])+dt.timedelta(hours=16)  
+    if tmpDate in orders.keys():  
+        orders[tmpDate].append([order[dateInd,0],order[dateInd,1],int(order[dateInd,2])])  
+    else:orders[tmpDate]=[[order[dateInd,0],order[dateInd,1],int(order[dateInd,2])]]  
+  
+#calc first and last day of order  
+order_date_list=list(orders.keys())  
+order_date_list.sort()  
+first_day=order_date_list[0]  
+last_day=order_date_list[-1]  
+  
+values=''  
+for i in ldt_timestamps:  
+    if i<first_day or i>last_day:  
+        continue  
+    if i in orders.keys():  
+        for singleOrder in orders[i]:  
+            equity=singleOrder[0]  
+            byOrSell=singleOrder[1]  
+            count=singleOrder[2]  
+            if equity in currentEquity.keys():  
+                currentEquity[equity]+=count*byOrSellDict[byOrSell]  
+            else:currentEquity[equity]=count*byOrSellDict[byOrSell]  
+            currentCash+=-ldf_data[equity][i]*count*byOrSellDict[byOrSell]  
+      
+            print '----------------------',i,equity,byOrSell,count  
+            print currentEquity  
+              
+            #dateInd+=1  
+            #currentDate=dt.datetime(na_dates[dateInd,0],na_dates[dateInd,1],na_dates[dateInd,2])+dt.timedelta(hours=16)  
+      
+    #calc portfolia value  
+    portfValue=currentCash  
+    for tmpEqui in currentEquity.keys():  
+        portfValue+=ldf_data[tmpEqui][i]*currentEquity[tmpEqui]  
+    print i,portfValue  
+    values+=str(dt.date(i.year,i.month,i.day)).replace('-',',')+','+str(portfValue)+','  
+      
+values_list=list(values.split(','))  
+del values_list[-1]  
+values_array=np.array(values_list)  
+values_array.resize((values_array.size/4,4))  
+np.savetxt("hw4values.csv",values_array,delimiter=',',fmt='%s') 
+  Code(策略評估)-
+    #how to work? evalate the command below in order  
+#execfile('hw4_event.py')  
+#execfile('hw4_order.py')  
+#execfile('hw4_anylize.py')  
+  
+from math import sqrt  
+  
+date_values = np.loadtxt('hw4values.csv',dtype=np.str,delimiter=',')  
+values=np.float_(date_values[:,3])  
+  
+total_return=values[-1]/values[0]  
+  
+#dayly_return=values[1:]/values[:-1]-1  
+dayly_return=tsu.returnize0(values)  
+  
+std=np.std(dayly_return)  
+  
+ave_dayly_ret=np.mean(dayly_return)  
+  
+sharp_ratio=ave_dayly_ret/std*sqrt(252)  
+  
+print 'Total Return of Fund: ',total_return  
+print 'Standard Deviation of Fund: ',std  
+print 'Average Daily Return of Fund: ',ave_dayly_ret  
+print 'Sharpe Ratio of Fund: ',sharp_ratio
+  Code(平行整合回測)-
+    execfile('hw4_event.py')  
+    execfile('hw4_order.py')  
+    execfile('hw4_anylize.py') 
