@@ -13,3 +13,10 @@
 ##3 . 中國大學MOOC
 ###醫學統計學（12/16）- http://www.icourse163.org/course/sysu-20016#/info
 ###細胞生物學（3/3 ~ 5/26）- http://www.icourse163.org/course/scu-46011#/info
+欲具體圖像表示可執行下列R語言程式碼：
+#####`t<-c(0,9,18,21,29,35,42,46,55,57,72,84)`
+#####`c<-c(7,7,8,9,8,7,6,5,4,3,2,1)`
+#####`plot(t,c,type='l',xlab='days from 10/11',ylab='course number')`
+#####`title('MOOC Couses Number')`
+#####`points(t,c,col='red')`
+
