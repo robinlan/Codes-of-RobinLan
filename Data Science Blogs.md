@@ -13,3 +13,4 @@
 ##12 .  An Introduction to Statistical Learning with Applications in R (ISLR) - http://www.r-bloggers.com/in-depth-introduction-to-machine-learning-in-15-hours-of-expert-videos/
 ##13 . R Bloggers - http://www.r-bloggers.com/
 ##14 . Forecasting: principles and practice - https://www.otexts.org/book/fpp
+##15 . OTexts - https://www.otexts.org/
