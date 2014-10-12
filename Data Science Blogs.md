@@ -7,3 +7,7 @@
 ##6 . Walking Randomly - http://www.walkingrandomly.com/
 ##7 . Normal Deviate - http://normaldeviate.wordpress.com/
 ##8 . no free hunch - http://blog.kaggle.com/
+##9 . PLOS Computational Biology - http://journals.plos.org/ploscompbiol/
+##10 . NYC Open Data - https://nycopendata.socrata.com/
+##11 . Analyticbridge - http://www.analyticbridge.com/
+##12 .  An Introduction to Statistical Learning with Applications in R (ISLR) - http://www.r-bloggers.com/in-depth-introduction-to-machine-learning-in-15-hours-of-expert-videos/
