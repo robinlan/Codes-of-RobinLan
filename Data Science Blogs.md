@@ -12,3 +12,4 @@
 ##11 . Analyticbridge - http://www.analyticbridge.com/
 ##12 .  An Introduction to Statistical Learning with Applications in R (ISLR) - http://www.r-bloggers.com/in-depth-introduction-to-machine-learning-in-15-hours-of-expert-videos/
 ##13 . R Bloggers - http://www.r-bloggers.com/
+##14 . Forecasting: principles and practice - https://www.otexts.org/book/fpp
