@@ -1,0 +1,3 @@
+eBP(early BP) : 400ms~1400ms 
+lBP(late BP)  : 1700ms~2100ms
+MP            : 2120ms~2150ms
