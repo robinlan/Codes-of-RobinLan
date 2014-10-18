@@ -1,19 +1,3 @@
-//Coursera
-Data Analysis and Statistical Inference (­«­n)
-Computational Investing, Part I
-­pºâ¾÷²Õ¦¨
-¾÷¾¹¾Ç²ß°ò¥Û (­«­n)
-¥Íª««H®§¾Ç : ¾É½×»P¤èªk
-Algorithms, Biology, and Programming for Beginners (­«­n)
-
-//¤¤°ê¤j¾ÇMOOC
-Âå¾Ç²Î­p¾Ç (­«­n)
-°ªµ¥¼Æ¾Ç(¤@)~(¤­) (­«­n)
-²Ó­M¥Íª«¾Ç
-¤À¤l¥Íª«¾Ç
-¬y¦æ¯f¾Ç°òÂ¦
-
-//¾Ç°ó¦b½u
-°]°È¤ÀªR»P¨Mµ¦
-¼ÒÀÀ¹q¤l§Ş³N°òÂ¦ (­«­n)
-¦t©z¤¤¤ßªº­^»yÅ¥»¡½Ò
+#ç›®æ¨™ï¼šé€™å­¸æœŸå¯«å‡ºä¸€ç¯‡è«–æ–‡ï¼ˆ12æœˆé–‹å§‹ï¼‰ã€ä¸‹å­¸æœŸç¨ç•¶ä¸€é¢ç ”ç©¶EEG
+##EEG Signal Processing é…åˆ Statistical Learning (Stanford) å’Œ The Element of Statistical Learning ä¸€èµ·
+##Medical Neuroscience MOOC å’Œ Digital Signal Processing å¯’å‡é–‹å§‹
