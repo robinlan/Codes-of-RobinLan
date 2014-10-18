@@ -4,8 +4,8 @@
 ###機器學習基石（11/24）- https://www.coursera.org/course/ntumlone
 ###機器學習（12/1）- https://www.coursera.org/course/ml
 ###神經數據探索（12/14）- https://www.coursera.org/course/neuraldata
-###醫學神經科學（3/30）- https://www.coursera.org/course/medicalneuro
-###數字信號處理（3/30）- https://www.coursera.org/course/dsp
+###醫學神經科學（1/5 ~ 3/30）- https://www.coursera.org/course/medicalneuro
+###數字信號處理（1/19 ~ 3/30）- https://www.coursera.org/course/dsp
 ##2 . Edx
 ###哈佛解剖學X（11/18）-  https://courses.edx.org/courses/HarvardX/AT1x/2T2014/7aacd2b4952049bdb189cdc82a368ba7/
 ###資料中機器學習（12/5）- https://courses.edx.org/courses/CaltechX/CS_1156x/3T2014/info
